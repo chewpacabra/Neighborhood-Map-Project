@@ -1,7 +1,9 @@
 var map;
+var markers = [];
+
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 51.501409, lng: -0.018823},
+    center: {lat: 40.719526, lng: -74.0089934},
     zoom: 13
   });
   var tribeca = {lat: 40.719526, lng: -74.0089934};
@@ -11,7 +13,14 @@ function initMap() {
     map: map,
     title: 'First Marker!'
   });
-
+  // Creates an instance of GoogleMaps InfoWindow class with the attribute of content
+  var infoWindow = new google.maps.InfoWindow({
+    content: 'Do you ever feel like an infoWindow' + ' ready to start again?'
+  });
+  // The InfoWindow does not automatically open. This creates a click listener to open when marker is clicked
+  marker.addListener('click', function() {
+    infoWindow.open(map, marker);
+  });
 
 }
 
@@ -34,26 +43,16 @@ $(window).resize(function() {
 var ViewModel = function() {
     var self = this;
 
+    self.filter = ko.observable("");
     self.locationList = ko.observableArray([]);
-    self.searchOption = ko.observable("");
+
 
     locations.forEach(function(locationItem){
       self.locationList.push( new Location(locationItem) );
     });
 
-    self.locationsFilter = ko.computed(function() {
-       var result = [];
-       for (var i = 0; i < this.locationList.length; i++) {
-           var currentLocation = this.locationList[i]
-           if (currentLocation.title.toLowerCase().includes(this.searchOption()
-                   .toLowerCase())) {
-               this.locationList[i].setVisible(true);
-           } else {
-               this.locationList[i].setVisible(false);
-           }
-       }
-       return result;
-   }, this);
 };
+
+
 
 ko.applyBindings( new ViewModel());

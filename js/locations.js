@@ -1,68 +1,37 @@
 var locations = [
     {
-        title: 'Discovery Docks Apartments',
-        lat: 51.501409,
-        lng:  -0.018823,
-        type: 'Living Quarters'
+        title: 'Mueschke Garage',
+        lat: 30.0180852,
+        lng:  -95.7249338,
     },
     {
-        title: 'Nandos Restaurant',
-        lat: 51.5023146,
-        lng: -0.0187593,
-        type: 'Restaurant'
+        title: 'Reed Rd Garage',
+        lat: 29.6565847,
+        lng: -95.3872281,
     },
     {
-        title: 'Canary Wharf Tube Station',
-        lat: 51.5034898,
-        lng: -0.0185944,
-        type:  'Transit'
+        title: 'Airline Garage',
+        lat: 29.9287953,
+        lng: -95.4114391,
     },
     {
-        title: 'One Canada Square',
-        lat: 51.5049494,
-        lng: -0.0194997,
-        type:  'Shopping'
+        title: 'Kempwood Garage',
+        lat: 29.8221091,
+        lng: -95.568593,
     },
     {
-        title: 'The O2',
-        lat: 51.503039,
-        lng: 0.003154,
-        type: 'Entertainment'
+        title: 'Wallisville Garage',
+        lat: 29.7914907,
+        lng: -95.2677757,
     },
     {
-        title: 'Tesco Express',
-        lat: 51.500575,
-        lng: -0.017354,
-        type: 'Shopping'
+        title: 'Charles Garage',
+        lat: 29.8831646,
+        lng: -95.5834527,
     },
     {
-        title: 'Firezza Pizza',
-        lat: 51.496268,
-        lng: -0.015511,
-        type: 'Restaurant'
-    },
-    {
-        title: 'The Breakfast Club',
-        lat: 51.506066,
-        lng: -0.017345,
-        type: 'Restaurant'
-    },
-    {
-        title: 'Shake Shack',
-        lat: 51.504905,
-        lng: -0.018967,
-        type: 'Restaurant'
-    },
-    {
-        title: 'Asda Superstore',
-        lat: 51.494206,
-        lng: -0.012714,
-        type: 'Shopping'
-    },
-    {
-        title: 'Pizza Express',
-        lat: 51.505233,
-        lng: -0.021716,
-        type: 'Restaurant'
+        title: 'Spring Cypress Garage',
+        lat: 30.0458043,
+        lng: -95.5438207,
     }
 ]
