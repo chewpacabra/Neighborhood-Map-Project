@@ -7,7 +7,6 @@ var Location = function (data, i) {
   self = this
   self.i = i;
   self.visible = ko.observable(true);
-  self.title = ko.observable(data.title);
   self.position = data.location;
   self.title = data.title;
   self.lat = data.lat;
@@ -64,14 +63,10 @@ var Location = function (data, i) {
 
 	$.getJSON(foursquareURL).done(function(data) {
 		var results = data.response.venues[0];
-		self.URL = results.url;
-		if (typeof self.URL === 'undefined'){
-			self.URL = "";
-		}
 		self.street = results.location.formattedAddress[0];
     self.city = results.location.formattedAddress[1];
 	}).fail(function() {
-		alert("There was an error with the Foursquare API call. Please refresh the page and try again to load Foursquare data.");
+		alert("API did not load. Please try again.");
 	});
 
 
