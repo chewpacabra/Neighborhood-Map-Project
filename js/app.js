@@ -69,30 +69,14 @@ var Location = function (data) {
   this.title = ko.observable(data.title);
 };
 
-// Sets height for map with bootstrap
-function setHeight() {
-  windowHeight = $(window).innerHeight();
-  $('#map').css('min-height', windowHeight );
-};
-
-setHeight();
-$(window).resize(function() {
-  setHeight();
-});
-// end of script
 
 var ViewModel = function() {
     var self = this;
-
-    self.filter = ko.observable("");
     self.locationList = ko.observableArray([]);
-
     locations.forEach(function(locationItem){
       self.locationList.push( new Location(locationItem) );
     });
 
 };
-
-
 
 ko.applyBindings( new ViewModel());

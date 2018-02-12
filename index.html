@@ -17,7 +17,12 @@
         <div class="col-xs-2">
           <button id="show-listings" type="button" class="btn btn-success">Show Listings</button>
           <button id="hide-listings" type="button" class="btn btn-danger">Hide Listings</button>
-          <input class="search"  placeholder="Search Locations...">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">Go!</button>
+            </span>
+          </div><!-- /input-group -->
           <ul data-bind="foreach: locationList">
             <li data-bind="text: title"></li>
           </ul>
@@ -27,6 +32,8 @@
         </div>
       </div>
     </div>
+    <!-- small script to fit the map with bootstrap -->
+    <script src="js/mapFit.js"></script>
     <!--Adds various locations -->
     <script src="js/locations.js"></script>
     <!-- Loads Google Maps API with initMap function -->
