@@ -1,5 +1,7 @@
 var map;
 var markers = [];
+var clientID = "";
+var clientSecret = "";
 
 var Location = function (data, i) {
   self = this
@@ -8,6 +10,9 @@ var Location = function (data, i) {
   self.title = ko.observable(data.title);
   self.position = data.location;
   self.title = data.title;
+  self.lat = data.lat;
+  self.lng = data.lng;
+  self.resultsID = "";
   self.infoWindow = new google.maps.InfoWindow();
   self.marker = new google.maps.Marker({
     position: this.position,
@@ -51,9 +56,25 @@ var Location = function (data, i) {
       });
     }
   }
-  this.markerClick = function() {
+  self.markerClick = function() {
     google.maps.event.trigger(this.marker, 'click')
   }
+
+  var foursquareURL = 'https://api.foursquare.com/v2/venues/search?ll='+ this.lat + ',' + this.lng + '&client_id=' + clientID + '&client_secret=' + clientSecret + '&v=20160118' + '&query=' + this.title;
+
+	$.getJSON(foursquareURL).done(function(data) {
+		var results = data.response.venues[0];
+		self.URL = results.url;
+		if (typeof self.URL === 'undefined'){
+			self.URL = "";
+		}
+		self.street = results.location.formattedAddress[0];
+    self.city = results.location.formattedAddress[1];
+	}).fail(function() {
+		alert("There was an error with the Foursquare API call. Please refresh the page and try again to load Foursquare data.");
+	});
+
+
 };
 
 
@@ -69,6 +90,10 @@ var ViewModel = function() {
     });
 
     bounds = new google.maps.LatLngBounds();
+
+    // foursquare
+    clientID = "NWEFYPS5GCVK0WAGLPLTHKETMDER4H0OQIDQUGAEEYH3F1SF"
+    clientSecret = "EQWMKBDXF5QESOSM1XJUHNSW1TTCZAD4IXHAU1P5MEX110D0"
 
     // Iterates through all locations provided and inputs into locationList array
     var i = 0
