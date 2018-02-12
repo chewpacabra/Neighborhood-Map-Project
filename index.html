@@ -15,8 +15,6 @@
     <div class="page-wrapper">
       <div class="row">
         <div class="col-xs-2">
-          <button id="show-listings" type="button" class="btn btn-success">Show Listings</button>
-          <button id="hide-listings" type="button" class="btn btn-danger">Hide Listings</button>
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Search for...">
             <span class="input-group-btn">
@@ -24,8 +22,10 @@
             </span>
           </div><!-- /input-group -->
           <ul data-bind="foreach: locationList">
-            <li data-bind="text: title"></li>
+            <li data-bind="click: markerClick, text: title"></li>
           </ul>
+          <button data-bind="click: showList" id="show-listings" type="button" class="btn btn-success">Show Listings</button>
+          <button data-bind="click: hideList" id="hide-listings" type="button" class="btn btn-danger">Hide Listings</button>
         </div>
         <div class="col-xs-10">
           <div id="map"></div>
@@ -37,7 +37,7 @@
     <!--Adds various locations -->
     <script src="js/locations.js"></script>
     <!-- Loads Google Maps API with initMap function -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1JAhYXvPzBbdFaYhFwgwUVKMPAy6OHGM&v=3&callback=initMap"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1JAhYXvPzBbdFaYhFwgwUVKMPAy6OHGM&v=3&callback=execute"></script>
     <script src="js/app.js"></script>
     <!-- Reference for several libraries that knockout uses via a .js file -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

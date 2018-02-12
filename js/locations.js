@@ -1,4 +1,4 @@
-var locations = [
+var attLocations = [
     {
         title: 'Mueschke Garage',
         location: {lat: 30.0180852, lng:  -95.7249338}
