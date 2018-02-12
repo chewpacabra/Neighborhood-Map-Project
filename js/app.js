@@ -16,7 +16,6 @@ function initMap() {
     var title = locations[i].title;
     // Create market for each location and push into markers array
     var marker = new google.maps.Marker({
-      map: map,
       position: position,
       title: title,
       animation: google.maps.Animation.DROP,
@@ -32,7 +31,25 @@ function initMap() {
     });
 
   }
-  map.fitBounds(bounds);
+  //This function will loop through the markers array and display them all.
+  function showListings() {
+    var bounds = new google.maps.LatLngBounds();
+    // Extends the boundaries of the map for each marker and display the markers
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(map);
+      bounds.extend(markers[i].position);
+    }
+    map.fitBounds(bounds);
+  }
+  // This function will loop through the markers array and hide them all.
+  function hideListings() {
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(null);
+    }
+  }
+  // event listeners for buttons on html
+  document.getElementById('show-listings').addEventListener('click', showListings);
+  document.getElementById('hide-listings').addEventListener('click', hideListings);
   // function populates the infoWindow when the marker is clicked.
   function populateInfoWindow(marker, infoWindow) {
     // check to see if infowindow is already open for this marker
