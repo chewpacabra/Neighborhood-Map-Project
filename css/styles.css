@@ -8,3 +8,12 @@ body {
 /* #map {
   height: 100%;
 } */
+
+.col-xs-2 {
+  padding-left: 50px;
+  padding-top: 20px;
+}
+
+.input-group {
+  padding-bottom: 20px;
+}

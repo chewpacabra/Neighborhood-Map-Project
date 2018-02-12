@@ -21,11 +21,11 @@
               <button class="btn btn-default" type="button">Go!</button>
             </span>
           </div><!-- /input-group -->
-          <ul data-bind="foreach: locationList">
-            <li data-bind="click: markerClick, text: title"></li>
+          <ul class="list-group" data-bind="foreach: locationList">
+            <li data-bind="click: markerClick, text: title" class="list-group-item"></li>
           </ul>
-          <button data-bind="click: showList" id="show-listings" type="button" class="btn btn-success">Show Listings</button>
-          <button data-bind="click: hideList" id="hide-listings" type="button" class="btn btn-danger">Hide Listings</button>
+          <button data-bind="click: showList" id="show-listings" type="button" class="btn btn-success">Show</button>
+          <button data-bind="click: hideList" id="hide-listings" type="button" class="btn btn-danger">Hide</button>
         </div>
         <div class="col-xs-10">
           <div id="map"></div>
