@@ -11,7 +11,7 @@ var clientSecret = "";
 // being passed in. i is used for id.
 var Location = function (data, i) {
 // self = this allows for references back to Location inside of something else
-  self = this
+  self = this;
   self.i = i;
   self.visible = ko.observable(true);
   self.position = data.location;
@@ -29,8 +29,8 @@ var Location = function (data, i) {
     animation: google.maps.Animation.DROP
   });
 
-  bounds.extend(this.position)
-  map.fitBounds(bounds)
+  bounds.extend(this.position);
+  map.fitBounds(bounds);
   self.showMarker = ko.computed(function() {
 		if(this.visible() === true) {
 			this.marker.setMap(map);
@@ -42,7 +42,7 @@ var Location = function (data, i) {
 
   function populateInfoWindow(marker, infoWindow) {
     // adds in animation when clicked
-    if (marker.getAnimation() != null) {
+    if (marker.getAnimation() !== null) {
       marker.setAnimation(null);
     } else {
       marker.setAnimation(google.maps.Animation.BOUNCE);
@@ -61,8 +61,8 @@ var Location = function (data, i) {
     }
   }
   self.markerClick = function() {
-    google.maps.event.trigger(this.marker, 'click')
-  }
+    google.maps.event.trigger(this.marker, 'click');
+  };
 
   var foursquareURL = 'https://api.foursquare.com/v2/venues/search?ll='+ this.lat + ',' + this.lng + '&client_id=' + clientID + '&client_secret=' + clientSecret + '&v=20160118' + '&query=' + this.title;
 
@@ -97,11 +97,11 @@ var ViewModel = function() {
     });
     bounds = new google.maps.LatLngBounds();
     // foursquare
-    clientID = "NWEFYPS5GCVK0WAGLPLTHKETMDER4H0OQIDQUGAEEYH3F1SF"
-    clientSecret = "EQWMKBDXF5QESOSM1XJUHNSW1TTCZAD4IXHAU1P5MEX110D0"
+    clientID = "NWEFYPS5GCVK0WAGLPLTHKETMDER4H0OQIDQUGAEEYH3F1SF";
+    clientSecret = "EQWMKBDXF5QESOSM1XJUHNSW1TTCZAD4IXHAU1P5MEX110D0";
 
     // Iterates through all locations provided and inputs into locationList array
-    var i = 0
+    var i = 0;
     attLocations.forEach(function(locationItem){
       self.locationList.push( new Location(locationItem, i) );
       i++;
