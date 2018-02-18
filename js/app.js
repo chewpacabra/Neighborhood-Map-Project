@@ -1,14 +1,23 @@
+// Disclaimer - some of the comments may be using incorrect verbage.
+
+// global variables
 var map;
 var markers = [];
 var clientID = "";
 var clientSecret = "";
 
+// declaring variable Location, a class defining an object that will be stored
+// into an array, locationList. Arguments: data, i. data is the entire object
+// being passed in. i is used for id.
 var Location = function (data, i) {
+// self = this allows for references back to Location inside of something else
   self = this
   self.i = i;
   self.visible = ko.observable(true);
   self.position = data.location;
   self.title = data.title;
+  self.street = '';
+  self.city = '';
   self.lat = data.lat;
   self.lng = data.lng;
   self.resultsID = "";
@@ -19,10 +28,7 @@ var Location = function (data, i) {
     map: map,
     animation: google.maps.Animation.DROP
   });
-  // Create onclick event listener to open infowindow at each marker.
-  self.marker.addListener('click', function() {
-    populateInfoWindow(this, self.infoWindow);
-  });
+
   bounds.extend(this.position)
   map.fitBounds(bounds)
   self.showMarker = ko.computed(function() {
@@ -47,12 +53,11 @@ var Location = function (data, i) {
     // check to see if infowindow is already open for this marker
     if (infoWindow.marker != marker) {
       infoWindow.marker = marker;
-      infoWindow.setContent('<div>' + marker.title + '</div>');
+      self.contentString = '<div class="info-window-content"><div class="title"><b>' + data.title + "</b></div>" +
+      '<div class="content">' + self.street + "</div>" +
+      '<div class="content">' + self.city + "</div>";
+      self.infoWindow.setContent(self.contentString);
       infoWindow.open(map, marker);
-      // Make sure the marker property is cleared if the infowindow is closed.
-      infoWindow.addListener('closeclick', function() {
-        infoWindow.setMarker(null);
-      });
     }
   }
   self.markerClick = function() {
@@ -69,6 +74,14 @@ var Location = function (data, i) {
 		alert("API did not load. Please try again.");
 	});
 
+  // Create onclick event listener to open infowindow at each marker.
+  self.marker.addListener('click', function() {
+    self.contentString = '<div class="info-window-content"><div class="title"><b>' + data.title + "</b></div>" +
+    '<div class="content">' + self.street + "</div>" +
+    '<div class="content">' + self.city + "</div>";
+    self.infoWindow.setContent(self.contentString);
+    populateInfoWindow(this, self.infoWindow);
+  });
 
 };
 
@@ -78,14 +91,11 @@ var ViewModel = function() {
     var self = this;
     self.query = ko.observable("");
     self.locationList = ko.observableArray([]);
-
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 29.9287953, lng: -95.4114391},
       zoom: 13
     });
-
     bounds = new google.maps.LatLngBounds();
-
     // foursquare
     clientID = "NWEFYPS5GCVK0WAGLPLTHKETMDER4H0OQIDQUGAEEYH3F1SF"
     clientSecret = "EQWMKBDXF5QESOSM1XJUHNSW1TTCZAD4IXHAU1P5MEX110D0"
@@ -96,7 +106,7 @@ var ViewModel = function() {
       self.locationList.push( new Location(locationItem, i) );
       i++;
     });
-
+    // This enables search capabilities
     this.queryList = ko.computed( function() {
       var filter = self.query().toLowerCase();
       if (!filter) {
@@ -113,6 +123,8 @@ var ViewModel = function() {
 			});
 		}
 	}, self);
+
+
 
 };
 
