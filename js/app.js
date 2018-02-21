@@ -11,7 +11,7 @@ var clientSecret = "";
 // being passed in. i is used for id.
 var Location = function (data, i) {
 // self = this allows for references back to Location inside of something else
-  self = this;
+  var self = this;
   self.i = i;
   self.visible = ko.observable(true);
   self.position = data.location;
