@@ -131,3 +131,8 @@ var ViewModel = function() {
 function execute() {
   ko.applyBindings( new ViewModel());
 }
+
+//MapError message
+function googleError() {
+  alert("Google Map API did not load. Please try again.");
+}

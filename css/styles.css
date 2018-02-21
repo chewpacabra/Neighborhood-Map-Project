@@ -19,7 +19,10 @@ body {
 }
 
 .list-group-item {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  /* white-space: nowrap;
+  text-overflow: ellipsis; */
+}
+
+.col-xs-3 {
+  padding-right: 0px;
 }
