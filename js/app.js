@@ -11,7 +11,7 @@ var clientSecret = "AK2EV3PB25SWGTE0FNFFMJSHRESGWMXCIISPHXAVRMERVH5O";
 // being passed in. i is used for id.
 var Location = function (data, i) {
 // self = this allows for references back to Location inside of something else
-  var self = this;
+  self = this;
   self.i = i;
   self.visible = ko.observable(true);
   self.position = data.location;
@@ -97,8 +97,8 @@ var ViewModel = function() {
     });
     bounds = new google.maps.LatLngBounds();
     // foursquare
-    clientID = "NWEFYPS5GCVK0WAGLPLTHKETMDER4H0OQIDQUGAEEYH3F1SF";
-    clientSecret = "EQWMKBDXF5QESOSM1XJUHNSW1TTCZAD4IXHAU1P5MEX110D0";
+    clientID = "WI3IDHFUQIX2VUENSZUFRHF0RW1X145USVEY2QYHHETRTQAW";
+    clientSecret = "AK2EV3PB25SWGTE0FNFFMJSHRESGWMXCIISPHXAVRMERVH5O";
 
     // Iterates through all locations provided and inputs into locationList array
     var i = 0;
