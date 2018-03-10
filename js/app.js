@@ -3,8 +3,8 @@
 // global variables
 var map;
 var markers = [];
-var clientID = "";
-var clientSecret = "";
+var clientID = "WI3IDHFUQIX2VUENSZUFRHF0RW1X145USVEY2QYHHETRTQAW";
+var clientSecret = "AK2EV3PB25SWGTE0FNFFMJSHRESGWMXCIISPHXAVRMERVH5O";
 
 // declaring variable Location, a class defining an object that will be stored
 // into an array, locationList. Arguments: data, i. data is the entire object
