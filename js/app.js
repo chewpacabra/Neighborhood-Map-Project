@@ -11,27 +11,41 @@ var clientSecret = "AK2EV3PB25SWGTE0FNFFMJSHRESGWMXCIISPHXAVRMERVH5O";
 // being passed in. i is used for id.
 var Location = function (data, i) {
 // self = this allows for references back to Location inside of something else
-  self = this;
-  self.i = i;
-  self.visible = ko.observable(true);
-  self.position = data.location;
-  self.title = data.title;
-  self.street = '';
-  self.city = '';
-  self.lat = data.lat;
-  self.lng = data.lng;
-  self.resultsID = "";
-  self.infoWindow = new google.maps.InfoWindow();
-  self.marker = new google.maps.Marker({
+  var self = this;
+  this.i = i;
+  this.visible = ko.observable(true);
+  this.position = data.location;
+  this.title = data.title;
+  this.street = '';
+  this.city = '';
+  this.lat = data.lat;
+  this.lng = data.lng;
+  this.resultsID = "";
+  this.infoWindow = new google.maps.InfoWindow();
+  this.marker = new google.maps.Marker({
     position: this.position,
     title: this.title,
     map: map,
     animation: google.maps.Animation.DROP
   });
 
+  var foursquareURL = 'https://api.foursquare.com/v2/venues/search?ll='+ this.lat + ',' + this.lng + '&client_id=' + clientID + '&client_secret=' + clientSecret + '&v=20160118' + '&query=' + this.title;
+
+  $.getJSON(foursquareURL).done(function(data) {
+    var results = data.response.venues[0];
+    self.street = results.location.formattedAddress[0];
+    self.city = results.location.formattedAddress[1];
+  }).fail(function() {
+    alert("API did not load. Please try again.");
+  });
+
+  this.contentString = '<div class="info-window-content"><div class="title"><b>' + data.title + "</b></div>" +
+  '<div class="content">' + self.street + "</div>" +
+  '<div class="content">' + self.city + "</div>";
+
   bounds.extend(this.position);
   map.fitBounds(bounds);
-  self.showMarker = ko.computed(function() {
+  this.showMarker = ko.computed(function() {
 		if(this.visible() === true) {
 			this.marker.setMap(map);
 		} else {
@@ -40,47 +54,23 @@ var Location = function (data, i) {
 		return true;
 	}, this);
 
-  function populateInfoWindow(marker, infoWindow) {
-    // adds in animation when clicked
-    if (marker.getAnimation() !== null) {
-      marker.setAnimation(null);
-    } else {
-      marker.setAnimation(google.maps.Animation.BOUNCE);
-      setTimeout(function() {
-        marker.setAnimation(null);
-      }, 3600);
-    }
-    // check to see if infowindow is already open for this marker
-    if (infoWindow.marker != marker) {
-      infoWindow.marker = marker;
-      self.contentString = '<div class="info-window-content"><div class="title"><b>' + data.title + "</b></div>" +
-      '<div class="content">' + self.street + "</div>" +
-      '<div class="content">' + self.city + "</div>";
-      self.infoWindow.setContent(self.contentString);
-      infoWindow.open(map, marker);
-    }
-  }
-  self.markerClick = function() {
+
+  this.markerClick = function() {
     google.maps.event.trigger(this.marker, 'click');
   };
 
-  var foursquareURL = 'https://api.foursquare.com/v2/venues/search?ll='+ this.lat + ',' + this.lng + '&client_id=' + clientID + '&client_secret=' + clientSecret + '&v=20160118' + '&query=' + this.title;
-
-	$.getJSON(foursquareURL).done(function(data) {
-		var results = data.response.venues[0];
-		self.street = results.location.formattedAddress[0];
-    self.city = results.location.formattedAddress[1];
-	}).fail(function() {
-		alert("API did not load. Please try again.");
-	});
 
   // Create onclick event listener to open infowindow at each marker.
-  self.marker.addListener('click', function() {
+  this.marker.addListener('click', function() {
     self.contentString = '<div class="info-window-content"><div class="title"><b>' + data.title + "</b></div>" +
     '<div class="content">' + self.street + "</div>" +
     '<div class="content">' + self.city + "</div>";
     self.infoWindow.setContent(self.contentString);
-    populateInfoWindow(this, self.infoWindow);
+    self.infoWindow.open(map, this);
+    self.marker.setAnimation(google.maps.Animation.BOUNCE);
+  	setTimeout(function() {
+  		self.marker.setAnimation(null);
+ 	  }, 2100);
   });
 
 };
